@@ -5,9 +5,10 @@
 5        map.put(0,1);
 6        for(int x : nums){
 7            sum += x % 2;
-8            if(map.containsKey(sum-k)) count += map.get(sum-k);
-9            map.put(sum,map.getOrDefault(sum,0)+1);
-10        }
-11        return count;
-12    }
-13}
+8            if(map.containsKey(sum-k))
+9                count += map.get(sum-k);
+10            map.put(sum,map.getOrDefault(sum,0)+1);
+11        }
+12        return count;
+13    }
+14}
