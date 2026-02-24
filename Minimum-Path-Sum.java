@@ -3,23 +3,20 @@
 3    public int minPathSum(int[][] mm) {
 4        int m = mm.length;
 5        int n = mm[0].length;
-6        int[] di = {1, 0};
-7        int[] dj = {0, 1};
-8        Integer[][] dp = new Integer[m][n];
-9        return solve(0, 0, mm, di, dj, m, n, 0, dp);
-10    }
-11
-12private int solve(int r, int c, int[][] a, int[] di, int[] dj, int m, int n, int curr, Integer[][] dp) {
-13        if (r == m - 1 && c == n - 1) return a[r][c];
-14        if (dp[r][c] != null) return dp[r][c];
-15        int best = Integer.MAX_VALUE;
-16        for (int i = 0; i < 2; i++) {
-17            int nextR = r + di[i];
-18            int nextC = c + dj[i];
-19            if (nextR < m &&  nextC < n ) {
-20                best = Math.min(best, solve(nextR, nextC, a, di, dj, m, n, curr + a[r][c], dp));
-21            }
-22        }
-23        return dp[r][c] = a[r][c] + (best == Integer.MAX_VALUE ? 0 : best);
-24    }
-25}
+6        Integer[][] dp = new Integer[m][n];
+7        return solve(0, 0, mm, m, n, dp);
+8    }
+9
+10private int solve(int r, int c, int[][] a, int m, int n, Integer[][] dp) {
+11       if (r == m - 1 && c == n - 1) return a[r][c];
+12        if (dp[r][c] != null) return dp[r][c];
+13
+14        int down = Integer.MAX_VALUE;
+15        int right = Integer.MAX_VALUE;
+16
+17        if (r + 1 < m) down = solve(r + 1, c, a,m, n, dp);
+18        if (c + 1 < n) right = solve(r, c + 1, a, m, n, dp);
+19
+20        return dp[r][c] = a[r][c] + Math.min(down, right);
+21    }
+22}
