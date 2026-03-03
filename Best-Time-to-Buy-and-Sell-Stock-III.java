@@ -1,20 +1,20 @@
 1class Solution {
-2    Integer[][][]dp;
-3    public int maxProfit(int[] nums) {
-4          dp= new Integer[nums.length][2][3];
-5        int k = 1;
-6      return  solve(nums,0,nums.length,k,2);
-7    }
-8    private int solve(int[]nums, int idx, int n , int k, int cap){
-9        if(cap==0) return 0;
-10        if(idx==n) return 0;
-11        if(dp[idx][k][cap]!=null) return dp[idx][k][cap];
-12        int profit;
-13        if(k==1){
-14          profit = Math.max(-nums[idx]+ solve(nums,idx+1,n,0,cap),0+solve(nums,idx+1,n,1,cap));
-15        }else{
-16           profit = Math.max(nums[idx]+solve(nums,idx+1,n,1,cap-1),0+solve(nums, idx+1,n , 0,cap));
+2    public int maxProfit(int[] nums) {
+3        int n = nums.length;
+4       int [][][] dp = new int[n+1][2][3];
+5        int profit;
+6        for (int i = n - 1; i >= 0; i--) {
+7            for (int j = 0; j <= 1; j++) {
+8                for (int cap = 1; cap <= 2; cap++) {
+9                    if (j == 1) {
+10                        profit = Math.max(-nums[i] + dp[i+1][0][cap],0+ dp[i+1][1][cap]);
+11                    } else {
+12                        profit = Math.max(nums[i] + dp[i+1][1][cap-1], 0+ dp[i+1][0][cap]);
+13                    }
+14                   dp[i][j][cap]= profit;
+15                }
+16            }
 17        }
-18        return dp[idx][k][cap]=profit;
+18        return dp[0][1][2];
 19    }
 20}
