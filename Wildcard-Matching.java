@@ -12,20 +12,18 @@
 12            for(int x=1;x<=m;x++){
 13                if(p.charAt(x-1)!='*') return false;
 14            }
-15            dp[n][m]= true;
-16            return  dp[n][m];
-17        }
-18        if(dp[n][m] != null) return dp[n][m];
-19     if(s.charAt(n-1)==p.charAt(m-1) || p.charAt(m-1)=='?') {
-20        dp[n][m]= solve(n-1,m-1,s,p,dp);
-21        return dp[n][m];
-22
-23     }
-24     if(p.charAt(m-1)=='*') {
-25       dp[n][m]=  solve(n-1,m,s,p,dp) || solve(n,m-1,s,p,dp);
-26       return dp[n][m]; 
-27     }
-28     dp[n][m]= false;
-29     return dp[n][m];
-30    } 
-31}
+15           return  dp[n][m]= true;
+16        }
+17        if(dp[n][m] != null) return dp[n][m];
+18     if(s.charAt(n-1)==p.charAt(m-1) || p.charAt(m-1)=='?') {
+19        dp[n][m]= solve(n-1,m-1,s,p,dp);
+20        return dp[n][m];
+21
+22     }
+23     if(p.charAt(m-1)=='*') {
+24     return  dp[n][m]=  solve(n-1,m,s,p,dp) || solve(n,m-1,s,p,dp);
+25
+26     }
+27    return dp[n][m]= false;
+28    } 
+29}
