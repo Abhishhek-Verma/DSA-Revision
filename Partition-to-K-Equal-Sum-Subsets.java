@@ -1,31 +1,26 @@
 1class Solution {
 2    public boolean canPartitionKSubsets(int[] nums, int k) {
-3         int total = 0;
-4        for (int num : nums) total += num;
-5
-6        if (total % k != 0) return false;
-7        int target = total / k;
-8
-9        boolean[] vis = new boolean[nums.length];
-10        return backtrack(nums, vis, k, 0, 0, target);
-11    }
-12
-13    private boolean backtrack(int[] nums, boolean[] vis, int k, int start, int sum, int target) {
+3        int sum = 0;
+4        for (int num : nums) sum += num;
+5        if (sum % k != 0) return false;
+6        int target = sum / k;
+7        Arrays.sort(nums);
+8        int n = nums.length;
+9        if (nums[n - 1] > target) return false;
+10        boolean[] visited = new boolean[n];
+11        return backtrack(nums, visited, k, 0, 0, target);
+12    }
+13    private boolean backtrack(int[] nums, boolean[] visited, int k, int start, int currSum, int target) {
 14        if (k == 1) return true;
-15
-16        if (sum == target)
-17            return backtrack(nums, vis, k - 1, 0, 0, target);
-18
-19        for (int i = start; i < nums.length; i++) {
-20            if (!vis[i] && sum + nums[i] <= target) {
-21                vis[i] = true;
-22
-23                if (backtrack(nums, vis, k, i + 1, sum + nums[i], target))
-24                    return true;
-25
-26                vis[i] = false;
-27            }
-28        }
-29        return false;
-30    }
-31}
+15        if (currSum == target)
+16            return backtrack(nums, visited, k - 1, 0, 0, target);
+17        for (int i = start; i < nums.length; i++) {
+18            if (visited[i] || currSum + nums[i] > target) continue;
+19            visited[i] = true;
+20            if (backtrack(nums, visited, k, i + 1, currSum + nums[i], target))
+21                return true;
+22            visited[i] = false;
+23        }
+24        return false;
+25    }
+26}
