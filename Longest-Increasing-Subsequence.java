@@ -1,22 +1,18 @@
 1class Solution {
-2    int[][] dp;
-3
-4    public int lengthOfLIS(int[] nums) {
-5        int n = nums.length;
-6        dp = new int[n][n + 1];
-7        for (int[] a : dp)
-8            Arrays.fill(a, -1);
-9        return solve(nums, 0, -1);
-10    }
-11
-12    private int solve(int[] nums, int idx, int prev) {
-13        if (idx == nums.length)
-14            return 0;
-15        if (dp[idx][prev+1] != -1)
-16            return dp[idx][prev+1];
-17        int notTake = 0 + solve(nums, idx + 1, prev);
-18        if (prev == -1 || nums[idx] > nums[prev])
-19            notTake = Math.max(notTake, 1 + solve(nums, idx + 1, idx));
-20        return dp[idx][prev+1] = notTake;
-21    }
-22}
+2    public int lengthOfLIS(int[] nums) {
+3       int n = nums.length;
+4        int[][] dp = new int[n + 1][n + 1];
+5        // all fill 0  base case ke liye  jo phle se java me hota h
+6        for (int idx = n - 1; idx >= 0; idx--) {
+7            for (int prev = idx - 1; prev >= -1; prev--) {
+8                int notTake = 0+ dp[idx + 1][prev + 1];
+9                int take = 0;
+10                if (prev == -1 || nums[idx] > nums[prev]) {
+11                    take = 1 + dp[idx + 1][idx + 1];
+12                }
+13                dp[idx][prev + 1] = Math.max(notTake, take);
+14            }
+15        }
+16        return dp[0][0];
+17    }
+18}
