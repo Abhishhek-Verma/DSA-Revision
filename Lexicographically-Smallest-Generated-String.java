@@ -8,41 +8,40 @@
 8        for (int i = 0; i < s.length; i++) {
 9            s[i] = 'a';
 10        }
-11
-12        for (int i = 0; i < n; i++) {
-13            if (str1.charAt(i) == 'T') {
-14                for (int j = i; j < i + m; j++) {
-15                    if (fixed[j] == 1 && s[j] != str2.charAt(j - i)) {
-16                        return "";
-17                    } else {
-18                        s[j] = str2.charAt(j - i);
-19                        fixed[j] = 1;
-20                    }
-21                }
-22            }
-23        }
-24
-25        for (int i = 0; i < n; i++) {
-26            if (str1.charAt(i) == 'F') {
-27                boolean flag = false;
-28                int idx = -1;
-29                for (int j = i + m - 1; j >= i; j--) {
-30                    if (str2.charAt(j - i) != s[j]) {
-31                        flag = true;
-32                    }
-33                    if (idx == -1 && fixed[j] == 0) {
-34                        idx = j;
-35                    }
-36                }
-37                if (flag) {
-38                    continue;
-39                } else if (idx != -1) {
-40                    s[idx] = 'b';
-41                } else {
-42                    return "";
-43                }
-44            }
-45        }
-46        return new String(s);
-47    }
-48}
+11        for (int i = 0; i < n; i++) {
+12            if (str1.charAt(i) == 'T') {
+13                for (int j = i; j < i + m; j++) {
+14                    if (fixed[j] == 1 && s[j] != str2.charAt(j - i)) {
+15                        return "";
+16                    } else {
+17                        s[j] = str2.charAt(j - i);
+18                        fixed[j] = 1;
+19                    }
+20                }
+21            }
+22        }
+23
+24        for (int i = 0; i < n; i++) {
+25            if (str1.charAt(i) == 'F') {
+26                boolean flag = false;
+27                int idx = -1;
+28                for (int j = i + m - 1; j >= i; j--) {
+29                    if (str2.charAt(j - i) != s[j]) {
+30                        flag = true;
+31                    }
+32                    if (idx == -1 && fixed[j] == 0) {
+33                        idx = j;
+34                    }
+35                }
+36                if (flag) {
+37                    continue;
+38                } else if (idx != -1) {
+39                    s[idx] = 'b';
+40                } else {
+41                    return "";
+42                }
+43            }
+44        }
+45        return new String(s);
+46    }
+47}
