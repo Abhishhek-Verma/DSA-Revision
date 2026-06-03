@@ -14,18 +14,17 @@
 14 * }
 15 */
 16class Solution {
-17    List<Integer>lst;
-18    public List<Integer> preorderTraversal(TreeNode root) {
-19        lst = new ArrayList<>();
-20        solve(root);
-21        return lst;
-22    }
-23    void solve(TreeNode root){
-24        if(root ==null){
-25            return;
-26        }
-27        lst.add(root.val);
-28        solve(root.left);
-29        solve(root.right);
-30    }
-31}
+17    public List<Integer> preorderTraversal(TreeNode root) {
+18        List<Integer>ans = new ArrayList<>();
+19        if(root == null) return ans;
+20        Stack<TreeNode>st = new Stack<>();
+21        st.push(root);
+22        while(!st.isEmpty()){
+23            root = st.pop();
+24            ans.add(root.val);
+25            if(root.right !=null) st.push(root.right);
+26            if(root.left !=null) st.push(root.left);
+27        }
+28        return ans;
+29    }
+30}
