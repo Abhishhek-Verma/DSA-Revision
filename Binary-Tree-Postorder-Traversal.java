@@ -1,31 +1,20 @@
-1/**
-2 * Definition for a binary tree node.
-3 * public class TreeNode {
-4 *     int val;
-5 *     TreeNode left;
-6 *     TreeNode right;
-7 *     TreeNode() {}
-8 *     TreeNode(int val) { this.val = val; }
-9 *     TreeNode(int val, TreeNode left, TreeNode right) {
-10 *         this.val = val;
-11 *         this.left = left;
-12 *         this.right = right;
-13 *     }
-14 * }
-15 */
-16class Solution {
-17    List<Integer>lst;
-18    public List<Integer> postorderTraversal(TreeNode root) {
-19           lst = new ArrayList<>();
-20        solve(root);
-21        return lst;
-22    }
-23    void solve(TreeNode root){
-24        if(root ==null){
-25            return;
-26        }
-27        solve(root.left);
-28        solve(root.right);
-29        lst.add(root.val);
-30    }
-31}
+1class Solution {
+2    public List<Integer> postorderTraversal(TreeNode root) {
+3        List<Integer> ans = new ArrayList<>();
+4        if(root == null) return ans;
+5
+6        Stack<TreeNode> st = new Stack<>();
+7        st.push(root);
+8
+9        while(!st.isEmpty()){
+10            TreeNode cur = st.pop();
+11            ans.add(cur.val);
+12
+13            if(cur.left != null) st.push(cur.left);
+14            if(cur.right != null) st.push(cur.right);
+15        }
+16
+17        Collections.reverse(ans);
+18        return ans;
+19    }
+20}
