@@ -16,16 +16,23 @@
 16class Solution {
 17    List<Integer>lst;
 18    public List<Integer> inorderTraversal(TreeNode root) {
-19       lst= new ArrayList<>();
-20        solve(root);
-21        return lst;
-22    }
-23    void solve(TreeNode root){
-24        if(root ==null){
-25            return;
+19        List<Integer>ans = new ArrayList<>();
+20        Stack<TreeNode>st = new Stack<>();
+21       TreeNode node = root;
+22       while(true){
+23        if(node!=null){
+24            st.push(node);
+25            node = node.left;
 26        }
-27        solve(root.left);
-28        lst.add(root.val);
-29        solve(root.right);
-30    }
-31}
+27        else{
+28            if(st.isEmpty()){
+29                break;
+30            }
+31            node = st.pop();
+32            ans.add(node.val);
+33            node = node.right;
+34        }
+35       }
+36       return ans;
+37    }
+38}
