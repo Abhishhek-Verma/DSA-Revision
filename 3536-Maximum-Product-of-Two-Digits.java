@@ -1,12 +1,16 @@
 class Solution {
     public int maxProduct(int n) {
-         int[] arr = new int[10]; 
-        int i = 0;
+        int max1 = 0, max2 = 0;
         while (n > 0) {
-            arr[i++] = n % 10;
+            int d = n % 10;
+            if (d >= max1) {
+                max2 = max1;
+                max1 = d;
+            } else if (d > max2) {
+                max2 = d;
+            }
             n /= 10;
         }
-        Arrays.sort(arr, 0, i);
-        return arr[i - 1] * arr[i - 2];
+        return max1 * max2;
     }
 }
